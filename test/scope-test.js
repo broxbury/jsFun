@@ -77,7 +77,7 @@ describe("SCOPE", () => {
       E: "Biscuit"
     }]);
     expect(e).withMessage("Your order of execution and/or values for variables in your result object are incorrect").to.be.true
-  }), it("exerciseG", () => {
+  }), it.only("exerciseG", () => {
     const e = JSON.stringify(scope.exerciseG()) == JSON.stringify([{
       A: "reference error"
     }, {
