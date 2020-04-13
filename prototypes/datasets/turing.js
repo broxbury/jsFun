@@ -7,7 +7,8 @@ const instructors = [
   { name: 'Travis', module: 1, teaches: ['javascript', 'html', 'css'] },
   { name: 'Louisa', module: 1, teaches: ['javascript', 'html', 'css', 'node', 'pwas'] },
   { name: 'Christie', module: 3, teaches: ['javascript', 'react', 'node'] },
-  { name: 'Will', module: 3, teaches: ['javascript', 'redux', 'react', 'oop', 'scope'] }
+  { name: 'Will', module: 3, teaches: ['javascript', 'redux', 'react', 'oop', 'scope'] },
+  { name: 'Robbie', module: 4, teaches: ['redux'] }
 ];
 
 const cohorts = [

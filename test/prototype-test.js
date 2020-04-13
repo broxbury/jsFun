@@ -328,7 +328,7 @@ describe("PROTOTYPES", () => {
     it("getBeerCount", () => {
       const e = breweryPrompts.getBeerCount();
       expect(e).to.deep.equal(40)
-    }), it("getBreweryBeerCount", () => {
+    }), it.only("getBreweryBeerCount", () => {
       const e = breweryPrompts.getBreweryBeerCount();
       expect(e).to.deep.equal([{
         name: "Little Machine Brew",
@@ -400,7 +400,7 @@ describe("PROTOTYPES", () => {
         Pam: [2, 4],
         Brittany: [2, 4],
         Nathaniel: [2, 4],
-        Robbie: [4],
+        Robbie: [3, 4],
         Leta: [2, 4],
         Travis: [1, 2, 3, 4],
         Louisa: [1, 2, 3, 4],
@@ -438,7 +438,7 @@ describe("PROTOTYPES", () => {
       }])
     })
   }), describe("Astronomy Prompts", () => {
-    it("starsInConstellations", () => {
+    it.only("starsInConstellations", () => {
       const e = astronomyPrompts.starsInConstellations();
       expect(e).to.deep.equal([{
         name: 'Rigel',
@@ -535,7 +535,7 @@ describe("PROTOTYPES", () => {
     it("totalDamage", () => {
       const e = ultimaPrompts.totalDamage();
       expect(e).to.deep.equal(113)
-    }), it("charactersByTotal", () => {
+    }), it.only("charactersByTotal", () => {
       const e = ultimaPrompts.charactersByTotal();
       expect(e).to.deep.equal([{
         Avatar: {

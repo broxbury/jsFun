@@ -114,18 +114,38 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = clubs.reduce((acc, club) => {
+    const result = clubs.reduce((obj, club) => {
       club.members.forEach(member => {
-        if (!acc[member]) {
-          acc[member] = [club.club];
+        if (!obj[member]) {
+          obj[member] = [club.club];
         } else {
-          acc[member].push(club.club);
+          obj[member].push(club.club);
         }
       });
-
-      return acc;
+      return obj;
     }, {});
     return result;
+
+
+
+
+
+
+
+
+
+    // const result = clubs.reduce((acc, club) => {
+    //   club.members.forEach(member => {
+    //     if (!acc[member]) {
+    //       acc[member] = [club.club];
+    //     } else {
+    //       acc[member].push(club.club);
+    //     }
+    //   });
+    //
+    //   return acc;
+    // }, {});
+    // return result;
 
     // Annotation:
 
@@ -168,11 +188,10 @@ const modPrompts = {
     // ]
 
     const result = mods.map(obj => {
-      let newMod = {};
-      newMod['mod'] = obj.mod;
-      newMod['studentsPerInstructor'] = obj.students / obj.instructors;
-
-      return newMod;
+      return {
+        ['mod']: obj.mod,
+        ['studentsPerInstructor']: obj.students / obj.instructors
+      };
     });
 
     return result;
@@ -275,7 +294,7 @@ const cakePrompts = {
 
     const result = cakes.reduce((acc, cake) => {
       cake.toppings.forEach(topping => {
-        if(!acc.includes(topping)) {
+        if (!acc.includes(topping)) {
           acc.push(topping);
         }
         return acc;
@@ -344,7 +363,7 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = classrooms.filter(classroom => classroom.program ==='FE');
+    const result = classrooms.filter(classroom => classroom.program === 'FE');
     return result;
 
     // Annotation:
@@ -381,7 +400,7 @@ const classPrompts = {
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a, b) => a.capacity - b.capacity);
     return result;
 
     // Annotation:
@@ -396,43 +415,51 @@ const classPrompts = {
 // ---------------------------------------------------------------------------
 
 // DATASET: books from './datasets/books
-
-const bookPrompts = {
-  removeViolence() {
-    // return an array of all book titles that are not horror or true crime. Eg:
-
-    //  ['1984', 'The Great Gatsby', 'Lord of the Flies', 'Harry Potter and the Sorcerer\'s Stone',
-    //   'The Hitchhiker\'s Guide to the Galaxy', 'Flowers for Algernon', 'Slaughterhouse-Five',
-    //   'The Handmaid\'s Tale', 'The Metamorphosis', 'Brave New World', 'Life of Pi',
-    //   'The Curious Incident of the Dog in the Night - Time', 'The Bell Jar',
-    //   'Catch-22', 'Treasure Island']
-
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
-
-  },
-  getNewBooks() {
-    // return an array of objects containing all books that were
-    // published in the 90's and 00's. Inlucde the title and the year Eg:
-
-    // [{ title: 'Harry Potter and the Sorcerer\'s Stone', year: 1997 },
-    //  { title: 'Life of Pi', year: 2001 },
-    //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
-  }
-
-};
-
-
+//
+const bookPrompts = {};
+//   removeViolence() {
+//     // return an array of all book titles that are not horror or true crime. Eg:
+//
+//     //  ['1984', 'The Great Gatsby', 'Lord of the Flies', 'Harry Potter and the Sorcerer\'s Stone',
+//     //   'The Hitchhiker\'s Guide to the Galaxy', 'Flowers for Algernon', 'Slaughterhouse-Five',
+//     //   'The Handmaid\'s Tale', 'The Metamorphosis', 'Brave New World', 'Life of Pi',
+//     //   'The Curious Incident of the Dog in the Night - Time', 'The Bell Jar',
+//     //   'Catch-22', 'Treasure Island']
+//
+//
+//     const result = books.filter(book => book.genre !== 'Horror' || book.genre !== 'True Crime')
+//       .map(book => {
+//         return book.title;
+//       });
+//
+//       return result;
+//   }
+//   // Annotation:
+//   // Write your annotation here as a comment
+//
+//
+// getNewBooks() {
+//     // return an array of objects containing all books that were
+//     // published in the 90's and 00's. Inlucde the title and the year Eg:
+//
+//     // [{ title: 'Harry Potter and the Sorcerer\'s Stone', year: 1997 },
+//     //  { title: 'Life of Pi', year: 2001 },
+//     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
+//
+//     const result =
+//     books.filter(book => book.published >= 1990)
+//     .map((currentBook) => {
+//       return {title: currentBook.title, year: currentBook.published};
+//     return result;
+// //
+// //     // Annotation:
+// //     // Write your annotation here as a comment
+// //
+// });
+//
+// })
+// }
+// }
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -446,7 +473,9 @@ const weatherPrompts = {
     // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.map((city) => {
+      return (city.temperature.high + city.temperature.low / 2);
+    });
     return result;
 
     // Annotation:
@@ -460,11 +489,11 @@ const weatherPrompts = {
     // 'New Orleans, Louisiana is sunny.',
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
+    const result = weather.filter(location => location.type === 'sunny' || location.type === 'mostly sunny')
+      .map(sunnyPlace => `${sunnyPlace.location} is ${sunnyPlace.type}.`);
     // Annotation:
     // Write your annotation here as a comment
+    return result;
   },
 
   findHighestHumidity() {
@@ -476,7 +505,7 @@ const weatherPrompts = {
     //   temperature: { high: 49, low: 38 }
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.sort((a, b) => b.humidity - a.humidity).shift();
     return result;
 
     // Annotation:
@@ -495,7 +524,9 @@ const weatherPrompts = {
 // DATASET: nationalParks from ./datasets/nationalParks
 
 const nationalParksPrompts = {
+
   getParkVisitList() {
+
     /// Return an object containing the names of which parks I need to visit
     // and the ones I have already visited eg:
     // {
@@ -503,7 +534,18 @@ const nationalParksPrompts = {
     //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
     //}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.reduce((newObj, park) => {
+      if (!park.visited) {
+        newObj['parksToVisit'].push(park.name);
+      } else {
+        newObj['parksVisited'].push(park.name);
+      }
+      return newObj;
+
+    }, {
+      parksToVisit: [],
+      parksVisited: []
+    });
     return result;
 
     // Annotation:
@@ -520,9 +562,13 @@ const nationalParksPrompts = {
     // { Florida: 'Everglades' } ]
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = nationalParks.map(park => {
+      return {
+        [park.location]: park.name
+      };
+    });
 
+    return result;
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -543,7 +589,14 @@ const nationalParksPrompts = {
     //   'backpacking',
     //   'rock climbing' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.reduce((array, park) => {
+      park.activities.forEach(activity => {
+        if (!array.includes(activity)) {
+          array.push(activity);
+        }
+      });
+      return array;
+    }, []);
     return result;
 
     // Annotation:
@@ -570,7 +623,12 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((sum, brewery) => {
+      brewery.beers.forEach(beer => {
+        return sum++;
+      });
+      return sum;
+    }, 0);
     return result;
 
     // Annotation:
@@ -586,7 +644,21 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.map(brewery => {
+      return {
+        name: brewery.name,
+        beerCount: brewery.beers.length,
+      };
+    });
+
+    // const result = breweries.reduce((array, brewery) => {
+    //   let obj = {};
+    //   obj['name'] = brewery.name;
+    //   obj['beerCount'] = brewery.beers.length;
+    //   array.push(obj);
+    //
+    //   return array;
+    // }, []);
     return result;
 
     // Annotation:
@@ -597,8 +669,13 @@ const breweryPrompts = {
     // Return the beer which has the highest ABV of all beers
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
+    const brewsky =
+      breweries.reduce((array, brewery) => {
+        array.push(brewery.beers);
+        return array;
+      }, []);
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = brewsky.flat().sort((a, b) => b.abv - a.abv).shift();
     return result;
 
     // Annotation:
@@ -646,7 +723,13 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result =
+      instructors.map(instructor => {
+        return {
+          name: instructor.name,
+          studentCount: cohorts.find(cohort => cohort.module === instructor.module).studentCount
+        };
+      });
     return result;
 
     // Annotation:
@@ -660,7 +743,10 @@ const turingPrompts = {
     // cohort1804: 10.5
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cohorts.reduce((obj, cohort) => {
+      obj[`cohort${cohort.cohort}`] = cohort.studentCount / instructors.filter(instructor => instructor.module === cohort.module).length;
+      return obj;
+    }, {});
     return result;
 
     // Annotation:
@@ -682,12 +768,27 @@ const turingPrompts = {
     //     Will: [1, 2, 3, 4]
     //   }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instructors.reduce((obj, instructor) => {
+      if (!obj[instructor.name]) {
+        obj[instructor.name] = [];
+      }
+      instructor.teaches.forEach(skill => {
+        cohorts.forEach(cohort => {
+          if (cohort.curriculum.includes(skill) && !obj[instructor.name].includes(cohort.module)) {
+            obj[instructor.name].push(cohort.module);
+            obj[instructor.name].sort((a, b) => a - b);
+          }
+        });
+      });
+      return obj;
+    }, {});
+    // console.log(result);
     return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
   },
+  // Annotation:
+  // Write your annotation here as a comment
+
+
 
   curriculumPerTeacher() {
     // Return an object where each key is a curriculum topic and each value is
@@ -734,7 +835,17 @@ const bossPrompts = {
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = Object.keys(bosses).map(boss => {
+      return {
+        bossName: boss.charAt(0).toUpperCase() + boss.slice(1),
+        sidekickLoyalty: sidekicks.filter(sidekick => sidekick.boss.toUpperCase() === boss.toUpperCase())
+          .reduce((sum, sidekick) => {
+            sum += sidekick.loyaltyToBoss;
+            return sum;
+          }, 0)
+      };
+    });
+
     return result;
 
     // Annotation:
@@ -775,11 +886,20 @@ const astronomyPrompts = {
     //     lightYearsFromEarth: 640,
     //     color: 'red' }
     // ]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // console.log(Object.values(constellations));
+    const result = Object.values(constellations).reduce((array, constellation) => {
+      constellation.stars.forEach(star => {
+        stars.forEach(starObj => {
+          if (star === starObj.name) {
+            array.push(starObj);
+          }
+        });
+      });
+      return array;
+    }, []).sort((a, b) => a.visualMagnitude - b.visualMagnitude);
     return result;
-
     // Annotation:
+    //itterate constellations.stars --
     // Write your annotation here as a comment
   },
 
@@ -847,10 +967,20 @@ const ultimaPrompts = {
     // Return the sum of the amount of damage for all the weapons that our characters can use
     // Answer => 113
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = characters.reduce((sum, character) => {
+      let damage = 0;
+      character.weapons.forEach(weapon => {
+        damage += weapons[weapon].damage;
+        // console.log(damage);
+      });
+      return sum += damage;
+    }, 0);
     return result;
 
     // Annotation:
+    // convert weapons obj to iterable something -- object.values(damage)
+    // iterate through and grab the damage value-- forEach(sum)
+    //return sum
     // Write your annotation here as a comment
   },
 
@@ -859,10 +989,23 @@ const ultimaPrompts = {
     // Return the sum damage and total range for each character as an object.
     // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = characters.reduce((array, character) => {
+      let totalDamage = 0;
+      let range = 0;
+      let obj = {
+        [character.name]: {
+          damage: character.weapons.reduce((sum, weapon) => sum += weapons[weapon].damage, 0),
+          range: character.weapons.reduce((sum, weapon) => sum += weapons[weapon].range, 0)
+        }
+      };
+      array.push(obj);
+      return array
+    }, []);
     return result;
 
     // Annotation:
+    // iterate through character array (reduce)
+    // iterate through weapons obj, add damage and range for each weapon the character has
     // Write your annotation here as a comment
   },
 };

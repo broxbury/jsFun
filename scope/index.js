@@ -280,26 +280,26 @@ const scope = {
 
     function eatSnack() {
       hunger -= 25;
-      // Log A: hunger
+      // Log A: hunger 75
       gorgeYourself();
 
       function gorgeYourself() {
         const hunger = 0;
-        // Log B: hunger
+        // Log B: hunger 0
       }
 
-      // Log C: hunger
+      // Log C: hunger 75
     }
 
     eatSnack();
 
     hunger += 5;
-    // Log D: hunger
+    // Log D: hunger 80
 
     eatSnack();
     // Log E: hunger
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [{A: 75}, {B: 0}, {C: 75}, {D: 80}, {A: 55}, {B: 0}, {C: 55}, {E: 55}];
     return result;
 
     // Annotation:
